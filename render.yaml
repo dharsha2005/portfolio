@@ -1,0 +1,7 @@
+services:
+  - type: web
+    name: portfolio
+    env: static
+    buildCommand: npm run build
+    publishDirectory: dist
+    nodeVersion: 22
