@@ -61,7 +61,7 @@ const Contact = () => {
                                 </div>
                             </a>
 
-                            <a href="https://www.linkedin.com/in/dharshan-b" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 p-4 bg-gray-50 dark:bg-gray-800 rounded-lg hover:shadow-md transition-shadow">
+                            <a href="https://www.linkedin.com/in/dharshan-b-523468291/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 p-4 bg-gray-50 dark:bg-gray-800 rounded-lg hover:shadow-md transition-shadow">
                                 <div className="w-10 h-10 bg-blue-100 dark:bg-blue-900/20 rounded-full flex items-center justify-center text-blue-600">
                                     <FaLinkedin size={20} />
                                 </div>
