@@ -1,13 +1,4 @@
 services:
-  # Frontend
-  - type: web
-    name: portfolio-frontend
-    env: static
-    buildCommand: npm run build
-    publishDirectory: dist
-    nodeVersion: 22
-    
-  # Backend
   - type: web
     name: portfolio-backend
     env: node
