@@ -24,7 +24,7 @@ const Contact = () => {
         setStatus("Sending...");
 
         try {
-            let response = await fetch("https://portfolio-backend.onrender.com/contact", {
+            let response = await fetch("https://portfolio-backend-bwda.onrender.com/contact", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json;charset=utf-8",
