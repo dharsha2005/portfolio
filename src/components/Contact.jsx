@@ -1,11 +1,51 @@
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { FaGithub, FaLinkedin, FaEnvelope, FaPaperPlane } from 'react-icons/fa';
+import { SiLeetcode } from 'react-icons/si';
 
 const Contact = () => {
-    const handleSubmit = (e) => {
+    const [status, setStatus] = useState("Submit");
+    const [formData, setFormData] = useState({
+        name: "",
+        email: "",
+        message: ""
+    });
+
+    const handleChange = (e) => {
+        const { id, value } = e.target;
+        setFormData((prevData) => ({
+            ...prevData,
+            [id]: value
+        }));
+    };
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        // Placeholder for form submission
-        alert("Thank you for your message! This is a demo form.");
+        setStatus("Sending...");
+
+        try {
+            let response = await fetch("http://localhost:5000/contact", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json;charset=utf-8",
+                },
+                body: JSON.stringify(formData),
+            });
+
+            let result = await response.json();
+            if (result.status === "Message Sent") {
+                setStatus("Sent!");
+                alert("Message Sent successfully!");
+                setFormData({ name: "", email: "", message: "" });
+            } else {
+                setStatus("Submit");
+                alert("Failed to send message. Please try again later.");
+            }
+        } catch (error) {
+            console.error("Error sending message:", error);
+            setStatus("Submit");
+            alert("Error sending message. innovative-portfolio-backend might not be running.");
+        }
     };
 
     return (
@@ -61,6 +101,16 @@ const Contact = () => {
                                 </div>
                             </a>
 
+                            <a href="https://leetcode.com/u/Dharshanbala" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 p-4 bg-gray-50 dark:bg-gray-800 rounded-lg hover:shadow-md transition-shadow">
+                                <div className="w-10 h-10 bg-yellow-100 dark:bg-yellow-900/20 rounded-full flex items-center justify-center text-yellow-600">
+                                    <SiLeetcode size={20} />
+                                </div>
+                                <div>
+                                    <h4 className="font-medium text-gray-900 dark:text-white">LeetCode</h4>
+                                    <p className="text-sm text-gray-500 dark:text-gray-400">Dharshanbala</p>
+                                </div>
+                            </a>
+
                             <a href="https://www.linkedin.com/in/dharshan-b-523468291/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 p-4 bg-gray-50 dark:bg-gray-800 rounded-lg hover:shadow-md transition-shadow">
                                 <div className="w-10 h-10 bg-blue-100 dark:bg-blue-900/20 rounded-full flex items-center justify-center text-blue-600">
                                     <FaLinkedin size={20} />
@@ -87,6 +137,8 @@ const Contact = () => {
                                 <input
                                     type="text"
                                     id="name"
+                                    value={formData.name}
+                                    onChange={handleChange}
                                     className="w-full px-4 py-3 rounded-lg bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 focus:ring-2 focus:ring-primary focus:outline-none transition-colors"
                                     placeholder="Your Name"
                                     required
@@ -97,6 +149,8 @@ const Contact = () => {
                                 <input
                                     type="email"
                                     id="email"
+                                    value={formData.email}
+                                    onChange={handleChange}
                                     className="w-full px-4 py-3 rounded-lg bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 focus:ring-2 focus:ring-primary focus:outline-none transition-colors"
                                     placeholder="your.email@example.com"
                                     required
@@ -107,6 +161,8 @@ const Contact = () => {
                                 <textarea
                                     id="message"
                                     rows="4"
+                                    value={formData.message}
+                                    onChange={handleChange}
                                     className="w-full px-4 py-3 rounded-lg bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 focus:ring-2 focus:ring-primary focus:outline-none transition-colors resize-none"
                                     placeholder="Your message..."
                                     required
@@ -116,7 +172,7 @@ const Contact = () => {
                                 type="submit"
                                 className="w-full py-3 bg-primary hover:bg-blue-600 text-white font-medium rounded-lg transition-colors flex items-center justify-center gap-2"
                             >
-                                Send Message <FaPaperPlane size={16} />
+                                {status} <FaPaperPlane size={16} />
                             </button>
                         </form>
                     </motion.div>
