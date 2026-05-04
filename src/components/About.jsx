@@ -24,7 +24,7 @@ const About = () => {
                         className="aspect-square rounded-2xl bg-gray-200 dark:bg-gray-800 flex items-center justify-center overflow-hidden"
                     >
                         <img
-                            src="/profile.jpg"
+                            src="/profile.jpeg"
                             alt="Dharshan B"
                             className="w-full h-full object-cover"
                         />
